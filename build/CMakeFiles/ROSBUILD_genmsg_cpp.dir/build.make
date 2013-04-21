@@ -42,9 +42,62 @@ CMAKE_BINARY_DIR = /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/buil
 # Include the progress variables for this target.
 include CMakeFiles/ROSBUILD_genmsg_cpp.dir/progress.make
 
-CMakeFiles/ROSBUILD_genmsg_cpp:
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h
+CMakeFiles/ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h
+
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: ../msg/xyz.msg
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: ../manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/rospy/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/rostest/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/actionlib_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/actionlib/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/diagnostic_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_driver/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/trajectory_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/stacks/control/control_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_controllers/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_msgs/msg_gen/generated
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/stacks/control/control_msgs/msg_gen/generated
+../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_controllers/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/msg/xyz.msg
+
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: ../msg/angles.msg
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: ../manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/rospy/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/rostest/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/actionlib_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/actionlib/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/diagnostic_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_driver/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/trajectory_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/stacks/control/control_msgs/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_controllers/manifest.xml
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_msgs/msg_gen/generated
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/stacks/control/control_msgs/msg_gen/generated
+../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_controllers/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h"
+	/opt/ros/fuerte/share/roscpp/rosbuild/scripts/genmsg_cpp.py /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/msg/angles.msg
 
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/my_dynamixel_tutorial/xyz.h
+ROSBUILD_genmsg_cpp: ../msg_gen/cpp/include/my_dynamixel_tutorial/angles.h
 ROSBUILD_genmsg_cpp: CMakeFiles/ROSBUILD_genmsg_cpp.dir/build.make
 .PHONY : ROSBUILD_genmsg_cpp
 

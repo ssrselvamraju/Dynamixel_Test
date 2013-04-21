@@ -42,9 +42,78 @@ CMAKE_BINARY_DIR = /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/buil
 # Include the progress variables for this target.
 include CMakeFiles/ROSBUILD_genmsg_lisp.dir/progress.make
 
-CMakeFiles/ROSBUILD_genmsg_lisp:
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/xyz.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_xyz.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/angles.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+CMakeFiles/ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_angles.lisp
+
+../msg_gen/lisp/xyz.lisp: ../msg/xyz.msg
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/xyz.lisp: ../manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/rostest/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/actionlib_msgs/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/actionlib/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/diagnostic_msgs/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_driver/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/trajectory_msgs/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_msgs/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/stacks/control/control_msgs/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_controllers/manifest.xml
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_msgs/msg_gen/generated
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/stacks/control/control_msgs/msg_gen/generated
+../msg_gen/lisp/xyz.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_controllers/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/xyz.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_xyz.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/msg/xyz.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/xyz.lisp
+
+../msg_gen/lisp/_package_xyz.lisp: ../msg_gen/lisp/xyz.lisp
+
+../msg_gen/lisp/angles.lisp: ../msg/angles.msg
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
+../msg_gen/lisp/angles.lisp: ../manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/roslang/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/rospy/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/roscpp/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/rostest/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/actionlib_msgs/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/actionlib/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/diagnostic_msgs/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_driver/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/trajectory_msgs/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_msgs/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/stacks/control/control_msgs/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_controllers/manifest.xml
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_msgs/msg_gen/generated
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/stacks/control/control_msgs/msg_gen/generated
+../msg_gen/lisp/angles.lisp: /opt/ros/fuerte/stacks/dynamixel_motor/dynamixel_controllers/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../msg_gen/lisp/angles.lisp, ../msg_gen/lisp/_package.lisp, ../msg_gen/lisp/_package_angles.lisp"
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/msg/angles.msg
+
+../msg_gen/lisp/_package.lisp: ../msg_gen/lisp/angles.lisp
+
+../msg_gen/lisp/_package_angles.lisp: ../msg_gen/lisp/angles.lisp
 
 ROSBUILD_genmsg_lisp: CMakeFiles/ROSBUILD_genmsg_lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/xyz.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_xyz.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/angles.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package.lisp
+ROSBUILD_genmsg_lisp: ../msg_gen/lisp/_package_angles.lisp
 ROSBUILD_genmsg_lisp: CMakeFiles/ROSBUILD_genmsg_lisp.dir/build.make
 .PHONY : ROSBUILD_genmsg_lisp
 

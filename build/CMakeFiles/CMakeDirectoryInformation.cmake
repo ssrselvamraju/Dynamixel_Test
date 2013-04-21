@@ -19,6 +19,7 @@ SET(CMAKE_C_INCLUDE_PATH
   "/opt/ros/fuerte/stacks/control/control_msgs/msg/cpp"
   "/opt/ros/fuerte/stacks/control/control_msgs/srv/cpp"
   "/opt/ros/fuerte/stacks/control/control_msgs/msg_gen/cpp/include"
+  "../msg_gen/cpp/include"
   )
 SET(CMAKE_CXX_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})
 SET(CMAKE_Fortran_INCLUDE_PATH ${CMAKE_C_INCLUDE_PATH})

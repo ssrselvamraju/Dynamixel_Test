@@ -1,0 +1,16 @@
+<package>
+  <description brief="my_dynamixel_tutorial">
+
+     my_dynamixel_tutorial
+
+  </description>
+  <author>SSR</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/my_dynamixel_tutorial</url>
+  <depend package="dynamixel_controllers"/>
+  <build_depend>message_generation</build_depend>
+  <run_depend>message_runtime</run_depend>
+</package>
+
+

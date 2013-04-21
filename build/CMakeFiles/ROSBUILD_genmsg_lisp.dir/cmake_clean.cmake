@@ -1,5 +1,14 @@
 FILE(REMOVE_RECURSE
+  "../msg_gen"
+  "../src/my_dynamixel_tutorial/msg"
+  "../msg_gen"
   "CMakeFiles/ROSBUILD_genmsg_lisp"
+  "../msg_gen/lisp/xyz.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_xyz.lisp"
+  "../msg_gen/lisp/angles.lisp"
+  "../msg_gen/lisp/_package.lisp"
+  "../msg_gen/lisp/_package_angles.lisp"
 )
 
 # Per-language clean rules from dependency scanning.

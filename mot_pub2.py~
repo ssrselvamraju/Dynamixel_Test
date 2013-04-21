@@ -103,10 +103,10 @@ if __name__ == '__main__':
 	#    % Calculate the angular position of all joints
 	    try:
 		theta1 = math.atan2(y,x)
-		if x<0 and y<0:
-		    theta1 = theta1 - math.pi
-		if x<0 and y>=0:
-		    theta1 = -(abs(theta1)-math.pi)
+	#	if x<0 and y<0:
+	#	    theta1 = theta1 - math.pi
+	#	if x<0 and y>=0:
+	#	    theta1 = -(abs(theta1)-math.pi)
 		           
 		a = dist - length5
 		b = z - length1
