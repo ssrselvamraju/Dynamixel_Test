@@ -72,17 +72,17 @@ if __name__ == '__main__':
         Theta6 = theta6
         #Set link lengths
 
-        #length1 = 75 #25  
-        #length2 = 404 #475
-        #length3 = 345 #380
-        #length4 = 45 #80
-        #length5 = 185 #150
+        length1 = 75 #25  
+        length2 = 404 #475
+        length3 = 345 #380
+        length4 = 45 #80
+        length5 = 185 #150
 
-        length1 = 25  
-        length2 = 475
-	length3 = 380
-	length4 = 80
-	length5 = 150
+#        length1 = 25  
+#        length2 = 475
+#	length3 = 380
+#	length4 = 80
+#	length5 = 150
 
 
 	#print 'length1', length1, length2
@@ -130,7 +130,9 @@ if __name__ == '__main__':
 		H23 = np.array([[math.cos(theta3), -math.sin(theta3), 0, length2], [math.sin(theta3), math.cos(theta3), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 		H34 = np.array([[0, 0, 1, length3],[math.cos(theta4), -math.sin(theta4), 0, 0],[math.sin(theta4), math.cos(theta4), 0, 0], [0, 0, 0, 1]])
 		H45 = np.array([[math.sin(theta5), math.cos(theta5), 0, 0],[ 0, 0, 1, 0],[math.cos(theta5), -math.sin(theta5), 0, length4],[0, 0, 0, 1]])
-		H5M = np.array([[1, 0, 0, length5],[ 0, 1, 0, 0],[ 0, 0, 1, 0],[ 0, 0, 0, 1]])
+		H5M = np.array([[1, 0, 0, length5],[ 0, 1, 0, 0],[ 0, 0, 1, -0.05],[ 0, 0, 0, 1]])
+
+#		H5M = np.array([[1, 0, 0, length5],[ 0, 1, 0, 0],[ 0, 0, 1, 0],[ 0, 0, 0, 1]])
 	#        print H01,"....",H12,"....",H23,"....",H34,"....",H45,"....",H5M
 	#    % Calculate the position of each joint with respent to the original
 	#    % coordinate frame
@@ -146,7 +148,9 @@ if __name__ == '__main__':
 		Theta2 = -theta2+2.33
 		Theta3 = -theta3+2.33
 		Theta4 = theta4;
-		Theta5 = -theta5+1.596
+	#	Theta5 = -theta5+1.596
+		Theta5 = theta5+1.596
+
 
 		theta = np.array([Theta1, Theta2, Theta3, Theta4, Theta5, Theta6])*1000
                 theta = theta.astype(int)/1000.

@@ -1,0 +1,19 @@
+Notes to be implemented in final program
+--------------------------------------------------------------------------------------------------------------------------
+
+Set compliance for end-effector poistioning.
+
+Measure at what place end effector closes and hold apple (for now, without having much pressure on motor)
+
+
+
+Define proper order in which motors should be called
+
+Rename all motors in order
+
+
+Get motor vals for start position and end position (and any path if desired)
+
+
+
+add something to read current state of motors and check if reached desired position

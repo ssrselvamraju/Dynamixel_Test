@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-#import roslib; roslib.load_manifest('my_dynamixel_tutorial')
+import roslib; roslib.load_manifest('my_dynamixel_tutorial')
 import rospy
+from my_dynamixel_tutorials.msg import xyz
+from my_dynamixel_tutorials.msg import angles
+
 from std_msgs.msg import Float64
 import math
 import numpy as np

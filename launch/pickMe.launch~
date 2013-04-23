@@ -1,0 +1,15 @@
+<launch>
+
+
+    
+    <node pkg="my_dynamixel_tutorial" name="motor_speed" type="set_motors_speed_client.py"/>
+    <node pkg="my_dynamixel_tutorial" name="ikNmotor" type="ikNmotor.py"/>
+    <node pkg="frt" name="vision_ros" type="my_subscriber"/>
+    <node pkg="my_dynamixel_tutorial" name="ikNmotor_client" type="ikNmotor_client.py"/>
+
+
+
+
+
+</launch>
+
