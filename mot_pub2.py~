@@ -130,7 +130,7 @@ if __name__ == '__main__':
 		H23 = np.array([[math.cos(theta3), -math.sin(theta3), 0, length2], [math.sin(theta3), math.cos(theta3), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 		H34 = np.array([[0, 0, 1, length3],[math.cos(theta4), -math.sin(theta4), 0, 0],[math.sin(theta4), math.cos(theta4), 0, 0], [0, 0, 0, 1]])
 		H45 = np.array([[math.sin(theta5), math.cos(theta5), 0, 0],[ 0, 0, 1, 0],[math.cos(theta5), -math.sin(theta5), 0, length4],[0, 0, 0, 1]])
-		H5M = np.array([[1, 0, 0, length5],[ 0, 1, 0, 0],[ 0, 0, 1, -0.05],[ 0, 0, 0, 1]])
+		H5M = np.array([[1, 0, 0, length5],[ 0, 1, 0, 0],[ 0, 0, 1, 0],[ 0, 0, 0, 1]])
 
 #		H5M = np.array([[1, 0, 0, length5],[ 0, 1, 0, 0],[ 0, 0, 1, 0],[ 0, 0, 0, 1]])
 	#        print H01,"....",H12,"....",H23,"....",H34,"....",H45,"....",H5M
@@ -157,7 +157,9 @@ if __name__ == '__main__':
                 theta=theta[::-1]   #In matlab code joint1 = base, but for motor code joint 1 = end-effector, so reversing values
 
 
-		if Theta3 > 4.325 or Theta2 < 0.38:
+
+#		if Theta3 > 4.325 or Theta2 < 0.38:
+                if Theta2 < 0.55 or Theta2 > 2.4 or Theta3 < 0.48 or Theta3 > 4.3 or Theta5 < -0.1 or Theta5 > 2.606:
 		    print "Unachievable states"
                 else:
 

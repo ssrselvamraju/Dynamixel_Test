@@ -25,7 +25,7 @@ if __name__ == "__main__":
 #        y = int(sys.argv[2])
 #        z = int(sys.argv[3])
     while True:       
-            with open("/home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/send.txt") as f:
+            with open("/home/ssr/fuerte_workspace/sandbox/send.txt") as f:
                 c=csv.reader(f,delimiter=' ',skipinitialspace=True)
                 for line in c:
                     a=int(line[0])
@@ -34,14 +34,14 @@ if __name__ == "__main__":
                     c=csv.reader(f,delimiter=' ',skipinitialspace=True)
                     for line in c:
                         a=int(line[0])
-                with open("/home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/output.txt") as f:
+                with open("/home/ssr/fuerte_workspace/sandbox/output.txt") as f:
                     c=csv.reader(f,delimiter=' ',skipinitialspace=True)
                     for line in c:
                         a=line
                     x=float(a[0])
                     y=float(a[1])
                     z=float(a[2])
-                    f=open("/home/ssr/fuerte_workspace/sandbox/my_dynamixel_tutorial/send.txt","w")
+                    f=open("/home/ssr/fuerte_workspace/sandbox/send.txt","w")
                     f.write(str(0))
                     f.close()
         

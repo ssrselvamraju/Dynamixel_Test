@@ -25,9 +25,9 @@ def set_motor_speeds_client():
         set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_speed', SetSpeed)
         set_speed3(0.25)
         set_speed4 = rospy.ServiceProxy('/tilt_controller4/set_speed', SetSpeed)
-        set_speed4(0.3)
+        set_speed4(0.25)
         set_speed5 = rospy.ServiceProxy('/tilt_controller5/set_speed', SetSpeed)
-        set_speed5(0.3)
+        set_speed5(0.25)
         set_speed6 = rospy.ServiceProxy('/tilt_controller6/set_speed', SetSpeed)
         set_speed6(0.25)
     except rospy.ServiceException, e:

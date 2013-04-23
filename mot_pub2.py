@@ -157,8 +157,10 @@ if __name__ == '__main__':
                 theta=theta[::-1]   #In matlab code joint1 = base, but for motor code joint 1 = end-effector, so reversing values
 
 
-		if Theta3 > 4.325 or Theta2 < 0.38:
-		    print "Unachievable states"
+
+#		if Theta3 > 4.325 or Theta2 < 0.38:
+                if Theta2 < 0.55 or Theta2 > 2.4 or Theta3 < 0.48 or Theta3 > 4.3 or Theta5 < -0.1 or Theta5 > 2.606:
+		    print "Unachievable motor angles"
                 else:
 
 	#        print theta

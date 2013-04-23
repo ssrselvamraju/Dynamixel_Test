@@ -22,47 +22,53 @@ def mot_pub(m_three,m_four,m_five,m_one,m_two,m_six):
     xxx=1
     while xxx is 1: #rospy.is_shutdown():
         xxx = 2
-	m_three=float(m_three)
-	m_four=float(m_four)
-	m_five=float(m_five)
-	m_one=float(m_one)
-	m_two=float(m_two)
-	m_six=float(m_six)
+        m_three=float(m_three)
+        m_four=float(m_four)
+        m_five=float(m_five)
+        m_one=float(m_one)
+        m_two=float(m_two)
+        m_six=float(m_six)
 
-	rospy.loginfo(m_six) #Base
+        rospy.loginfo(m_six) #Base
 
-	rospy.loginfo(m_one)  #MX-64/106?
-	rospy.loginfo(m_two)  #MX-64/106?
+        rospy.loginfo(m_one)  #MX-64/106?
+        rospy.loginfo(m_two)  #MX-64/106?
 
-	rospy.loginfo(m_three)  #End effector open close
-	rospy.loginfo(m_four)  #End effector up/down
-	rospy.loginfo(m_five)  #End effector twist
+        rospy.loginfo(m_three)  #End effector open close
+        rospy.loginfo(m_four)  #End effector up/down
+        rospy.loginfo(m_five)  #End effector twist
 
 #Order in which stuff is published
-
-    pub6.publish(Float64(m_six))
-    time.sleep(1)
-    pub1.publish(Float64(m_one))
-    time.sleep(1)
-    pub2.publish(Float64(m_two))
-    time.sleep(1)
-    pub3.publish(Float64(m_three))
-    pub4.publish(Float64(m_four))
-    pub5.publish(Float64(m_five))
+        time.sleep(1)
+        pub2.publish(0.57)
+        pub1.publish(Float64(m_one))
+        time.sleep(1)
+        pub3.publish(Float64(m_three))
+        pub4.publish(Float64(m_four))
+        pub5.publish(Float64(m_five))
+        time.sleep(1)
+        pub6.publish(Float64(m_six))
+        print "Moving base", "m_six", m_six
+#        time.sleep(1)
+#        pub1.publish(Float64(m_one))
+        time.sleep(5)
+        pub2.publish(Float64(m_two))
+#        time.sleep(1)
         
-    rospy.sleep(0.1)
+        rospy.sleep(0.1)
+        time.sleep(5)
 #add something to read current state of motors and check if reached desired position
 
 
 #see if rosspin shud be added here
-
+    return None
 
 def pickme_ik(x,y,z):
        # x = 0
        # y = 500
        # z = 500
 
-        theta6= -1.1   #setting manip approach angle 
+        theta6= -1   #setting manip approach angle 
         Theta6 = theta6
         #Set link lengths
 
@@ -127,11 +133,11 @@ def pickme_ik(x,y,z):
                 H0M = np.dot(H05,H5M)
         
         
-                Theta1 = theta1
-                Theta2 = -theta2+2.33
-                Theta3 = -theta3+2.33
-                Theta4 = theta4;
-                Theta5 = theta5+1.596   #Check and change this value in all the programs
+                Theta1 = theta1     # BASE
+                Theta2 = -theta2+2.33    #MX106
+                Theta3 = -theta3+2.33   #MX64
+                Theta4 = theta4     #ARM twist 
+                Theta5 = theta5+1.596   #Arm up/down  #Check and change this value in all the programs
 
 
                 theta = np.array([Theta1, Theta2, Theta3, Theta4, Theta5, Theta6])*1000
@@ -139,10 +145,10 @@ def pickme_ik(x,y,z):
                 theta=theta[::-1]   #In matlab code joint1 = base, but for motor code joint 1 = end-effector, so reversing values
 
 
-                if Theta3 > 4.325 or Theta2 < 0.38:  #write more for all motors
+                if Theta2 < 0.55 or Theta2 > 2.4 or Theta3 < 0.48 or Theta3 > 4.3 or Theta5 < -0.1 or Theta5 > 2.606 :  
                     print "Position unreachable by motors"
                 else:
-    #        print theta
+                    print theta
     #        theta=theta + np.array([0,,0,,,-1.64])  
                     return theta
 #                    mot_pub(Theta6,Theta5,Theta4,Theta3,Theta2,Theta1)
@@ -167,13 +173,13 @@ def setMotorSpeeds_client():
         set_speed1 = rospy.ServiceProxy('/tilt_controller1/set_speed', SetSpeed)
         set_speed1(0.25)
         set_speed2 = rospy.ServiceProxy('/tilt_controller2/set_speed', SetSpeed)
-        set_speed2(0.25)
+        set_speed2(0.20)
         set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_speed', SetSpeed)
         set_speed3(0.25)
         set_speed4 = rospy.ServiceProxy('/tilt_controller4/set_speed', SetSpeed)
-        set_speed4(0.25)
+        set_speed4(0.35)
         set_speed5 = rospy.ServiceProxy('/tilt_controller5/set_speed', SetSpeed)
-        set_speed5(0.25)
+        set_speed5(0.35)
         set_speed6 = rospy.ServiceProxy('/tilt_controller6/set_speed', SetSpeed)
         set_speed6(0.25)
     except rospy.ServiceException, e:
@@ -191,20 +197,20 @@ def closeManip(flag):
         xxx = 2
         
     if flag == 0:   #CLOSE
-        manipCloseVal = -0.8
+        manipCloseVal = -1.4
         print "Closing End effector"
         time.sleep(3)
         manipPub.publish(Float64(manipCloseVal))
-        time.sleep(3)
+        time.sleep(4)
         dropFruit()
         
     else:
-        manipCloseVal = -1.4    #check values
+        manipCloseVal = -0.8    #check values
         print "Opening End Effector"
         time.sleep(1)
         manipPub.publish(Float64(manipCloseVal))
         time.sleep(3)
-        
+#        rospy.spinonce()
         return None
     
 #    time.sleep(1)
@@ -229,13 +235,13 @@ def dropFruit():
     #define all these values after measurement
     
     
-    m_four = 0.1  #twist?
-    m_five = 0.1 #roll?
+    m_four = 0.785  #rock
+    m_five = 0.785 #twist
     
-    m_two = 0.1 #come back a bit
+#    m_two = 0.7 #come back a bit
     rospy.loginfo(m_four)
     rospy.loginfo(m_five)
-    rospy.loginfo(m_two)
+#    rospy.loginfo(m_two)
     
     
     time.sleep(1)
@@ -245,19 +251,19 @@ def dropFruit():
 
     time.sleep(2)
     
-    pub2.publish(Float64(m_two))
+#    pub2.publish(Float64(m_two))
     
     
     time.sleep(1)
     
     # Get manip to drop position
     
-    m_three=0.0
-    m_four=0.0
-    m_five=0.0
-    m_one=0.0
-    m_two=0.0
-    m_six=0.0
+    m_three=-0.95
+    m_four=0.966
+    m_five=-0.347
+    m_one=4.28
+    m_two=1.46
+    m_six=-1.917
 
     
     
@@ -314,22 +320,20 @@ def handle_ikNmotor(req):
     
     print "X Y Z [%s  %s  %s]"%(x, y, z)    
     motor_angles = pickme_ik(x,y,z)
-
+    print "Motor Angles", motor_angles
 
     resp = IkNMotorResponse()
     resp.angles=motor_angles
     
     if motor_angles is not None:
         mot_pub(motor_angles[0],motor_angles[1],motor_angles[2],motor_angles[3],motor_angles[4],motor_angles[5])
-
-
+        time.sleep(3)
+        closeManip(0)
 
     print "Theta", motor_angles
 
 #    Check if arm has reached position
 
-    time.sleep(3)
-    closeManip(0)
 
 
     
@@ -349,6 +353,7 @@ def ikNmotor_server():
 
 if __name__ == '__main__':
     setMotorSpeeds_client()
+    time.sleep(2)
     try:
         ikNmotor_server()
 #        x = input("Enter x co-ord: ")
