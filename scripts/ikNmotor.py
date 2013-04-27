@@ -185,7 +185,16 @@ def setMotorSpeeds_client():
     except rospy.ServiceException, e:
         print "Setting motor speed failed, ERROR: %s"%e
 
+##################################################################
+#    Test progs for arduino integration
 
+
+
+
+
+
+
+###################################################################
 
 
 

@@ -25,12 +25,17 @@ if __name__ == "__main__":
 #        y = int(sys.argv[2])
 #        z = int(sys.argv[3])
     while True:       
+        
+            print 'here'
             with open("/home/ssr/fuerte_workspace/sandbox/send.txt") as f:
                 c=csv.reader(f,delimiter=' ',skipinitialspace=True)
+                print 'read value'
                 for line in c:
+                    print 'line is',line
                     a=int(line[0])
+                print 'a is',a
                 while a==0:
-                    print 'waiting for data'
+                    print 'waiting for data since a is',a
                     c=csv.reader(f,delimiter=' ',skipinitialspace=True)
                     for line in c:
                         a=int(line[0])
@@ -41,9 +46,11 @@ if __name__ == "__main__":
                     x=float(a[0])
                     y=float(a[1])
                     z=float(a[2])
-                    f=open("/home/ssr/fuerte_workspace/sandbox/send.txt","w")
-                    f.write(str(0))
-                    f.close()
+                    print x,y,z
+                    print 'success till here'
+                    #f=open("/home/ssr/fuerte_workspace/sandbox/send.txt","w")
+                    #f.write(str(0))
+                    #f.close()
         
 #    else:
 #        print usage()
