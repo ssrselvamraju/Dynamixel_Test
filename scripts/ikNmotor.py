@@ -5,9 +5,25 @@ from std_msgs.msg import Float64
 import math
 import numpy as np
 import time
+import copy
 #import sys
 from dynamixel_controllers.srv import *
 from my_dynamixel_tutorial.srv import *
+from dynamixel_msgs.msg import JointState
+
+
+###########GLOBAL VARIABLES###############
+global stop_command
+
+stop_command = "start"
+
+global gripper_angle
+
+gripper_angle = 0.0
+##########################################
+
+
+
 
 def mot_pub(m_three,m_four,m_five,m_one,m_two,m_six):
     pub1 = rospy.Publisher('tilt_controller1/command', Float64)
@@ -110,6 +126,8 @@ def pickme_ik(x,y,z):
                 Theta = [theta1, theta2, theta3, theta4, theta5, theta6]
     #    print Theta
     #        print theta1, theta2, theta3, theta4, theta5
+
+    
     #    % Calculate the relative cartesian positions of all joints based on the 
     #    % calculated angles and given link lengths
 
@@ -185,17 +203,91 @@ def setMotorSpeeds_client():
     except rospy.ServiceException, e:
         print "Setting motor speed failed, ERROR: %s"%e
 
+
+#'''
+
+##################################################################
+######Function to set complaince####################
+#Measure and set stuff from Windows!!!
+
+def setMotorComplaince_client():
+    rospy.wait_for_service('/tilt_controller3/set_compliance_slope')   #Complaince slope
+    rospy.wait_for_service('/tilt_controller3/set_compliance_margin')   #Complaince margin
+    
+    try:
+        set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_compliance_slope', SetComplianceSlope)
+        set_speed3(4)
+        set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_compliance_margin', SetComplianceMargin)
+        set_speed3(4)
+
+    
+    except rospy.ServiceException, e:
+        print "Setting motor complaince failed, ERROR: %s"%e
+
+
+
+
+##################################################################
+
+##################################################################
+######Function to set motor torque####################
+
+
+def setMotorTorque_client():
+    rospy.wait_for_service('/tilt_controller3/torque_enable')
+    
+    try:
+        torque_enable3 = rospy.ServiceProxy('/tilt_controller3/torque_enable', TorqueEnable)
+        torque_enable3(0)
+        
+    except rospy.ServiceException, e:
+        print "Setting motor speed failed, ERROR: %s"%e
+
+##################################################################
+
+
+
+
 ##################################################################
 #    Test progs for arduino integration
 
 
+def arduino_callback(data):
+    rospy.loginfo(data.data)
+    stop_message = data.data
 
+
+def arduino_listener():
+#    rospy.init_node('listener', anonymous=True)
+    rospy.Subscriber("stopMsg", String, arduino_callback)
 
 
 
 
 ###################################################################
 
+
+
+###################################################################
+######Subscribers for gripper position################
+
+def gripper_callback(data):
+    rospy.loginfo("Curr_gripper_pos is %s" % data.current_pos)
+    gripper_angle = data.current_pos
+
+def gripper_pos_listener():
+#    rospy.init_node('test_listener', anonymous=True)
+    rospy.Subscriber("/tilt_controller3/state", JointState, callback)
+
+
+
+
+
+
+####################################################################
+
+
+#'''
 
 
 def closeManip(flag):
@@ -210,7 +302,19 @@ def closeManip(flag):
         print "Closing End effector"
         time.sleep(3)
         manipPub.publish(Float64(manipCloseVal))
+        
+        if stop_message == "stop":
+            setMotorTorque_client()
+        
+        ###grip apple tight!!
+        
+        current_gripper_angle = copy.deepcopy(gripper_angle)
+        setFinal_gripper_angle = current_gripper_angle - 0.08   ###CHECK ####### TEST######
+        
         time.sleep(4)
+        
+        
+        
         dropFruit()
         
     else:
