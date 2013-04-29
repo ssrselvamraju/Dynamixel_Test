@@ -191,7 +191,7 @@ def setMotorSpeeds_client():
         set_speed1 = rospy.ServiceProxy('/tilt_controller1/set_speed', SetSpeed)
         set_speed1(0.25)
         set_speed2 = rospy.ServiceProxy('/tilt_controller2/set_speed', SetSpeed)
-        set_speed2(0.20)
+        set_speed2(0.10)
         set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_speed', SetSpeed)
         set_speed3(0.25)
         set_speed4 = rospy.ServiceProxy('/tilt_controller4/set_speed', SetSpeed)
@@ -215,6 +215,7 @@ def setMotorComplaince_client():
     rospy.wait_for_service('/tilt_controller3/set_compliance_margin')   #Complaince margin
     
     try:
+        print "Setting complaince"
         set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_compliance_slope', SetComplianceSlope)
         set_speed3(4)
         set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_compliance_margin', SetComplianceMargin)
@@ -255,7 +256,7 @@ def setMotorTorque_client():
 def arduino_callback(data):
     rospy.loginfo(data.data)
     stop_message = data.data
-
+    
 
 def arduino_listener():
 #    rospy.init_node('listener', anonymous=True)
@@ -302,8 +303,8 @@ def closeManip(flag):
         print "Closing End effector"
         time.sleep(3)
         manipPub.publish(Float64(manipCloseVal))
-        
-        if stop_message == "stop":
+        print stop_command
+        if stop_command == "stop":
             setMotorTorque_client()
         
         ###grip apple tight!!
@@ -467,6 +468,8 @@ def ikNmotor_server():
 if __name__ == '__main__':
     setMotorSpeeds_client()
     time.sleep(2)
+    setMotorComplaince_client()
+    time.sleep(0.5)
     try:
         ikNmotor_server()
 #        x = input("Enter x co-ord: ")

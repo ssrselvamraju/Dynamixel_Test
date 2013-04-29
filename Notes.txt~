@@ -1,19 +1,22 @@
 Notes to be implemented in final program
 --------------------------------------------------------------------------------------------------------------------------
 
-Set compliance for end-effector poistioning.
+Set compliance for end-effector poistioning. ------------ done >>>>>>>> Measure value from Windows!!!!!
 
-Measure at what place end effector closes and hold apple (for now, without having much pressure on motor)
-
-
-
-Define proper order in which motors should be called
-
-Rename all motors in order
+Measure at what place end effector closes and hold apple (for now, without having much pressure on motor)  >>> Closing stop with respect to force sensor implemented!!!
 
 
-Get motor vals for start position and end position (and any path if desired)
+Measure value of how much more to move after contact >> Integrate this measurement with complaince allowance!!!???????
 
 
 
-add something to read current state of motors and check if reached desired position
+Define proper order in which motors should be called --------- kinda done >> try improving
+
+Rename all motors in order?????????????
+
+
+Get motor vals for start position and end position (and any path if desired) ---------kinda done >> try improving
+
+
+
+add something to read current state of motors and check if reached desired position --------------- done
