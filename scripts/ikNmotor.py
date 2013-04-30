@@ -2,6 +2,7 @@
 import roslib; roslib.load_manifest('my_dynamixel_tutorial')
 import rospy
 from std_msgs.msg import Float64
+from std_msgs.msg import Int32
 import math
 import numpy as np
 import time
@@ -20,8 +21,11 @@ stop_command = "start"
 global gripper_angle
 
 gripper_angle = 0.0
-##########################################
 
+global ui_flag
+
+ui_flag = 0
+##########################################
 
 
 
@@ -67,7 +71,7 @@ def mot_pub(m_three,m_four,m_five,m_one,m_two,m_six):
         print "Moving base", "m_six", m_six
 #        time.sleep(1)
 #        pub1.publish(Float64(m_one))
-        time.sleep(5)
+        time.sleep(2)  #Increase delay while its working
         pub2.publish(Float64(m_two))
 #        time.sleep(1)
         
@@ -299,26 +303,44 @@ def closeManip(flag):
         xxx = 2
         
     if flag == 0:   #CLOSE
+        ui_flag=1
+        uiPub = rospy.Publisher('toggle_led', Int32)
+        uiPub.publish(ui_flag)
+        
         manipCloseVal = -1.4
         print "Closing End effector"
         time.sleep(3)
+        
+        ui_flag=0
+        uiPub.publish(ui_flag)
+        
+        
+        
         manipPub.publish(Float64(manipCloseVal))
         print stop_command
         if stop_command == "stop":
             setMotorTorque_client()
-        
+            print "Stopped due to COMMAND"
         ###grip apple tight!!
         
         current_gripper_angle = copy.deepcopy(gripper_angle)
-        setFinal_gripper_angle = current_gripper_angle - 0.08   ###CHECK ####### TEST######
+        setFinal_gripper_angle = current_gripper_angle - 0.08   ###CHECK ####### TEST######put inside if!!
         
         time.sleep(4)
+
+        ui_flag=3
+        uiPub.publish(ui_flag)
         
         
         
         dropFruit()
         
     else:
+
+        ui_flag=4
+        uiPub.publish(ui_flag)
+
+        
         manipCloseVal = -0.8    #check values
         print "Opening End Effector"
         time.sleep(1)
@@ -349,26 +371,11 @@ def dropFruit():
     #define all these values after measurement
     
     
-    m_four = 0.785  #rock
-    m_five = 0.785 #twist
-    
-#    m_two = 0.7 #come back a bit
-    rospy.loginfo(m_four)
-    rospy.loginfo(m_five)
-#    rospy.loginfo(m_two)
-    
-    
-    time.sleep(1)
-    
-    pub4.publish(Float64(m_four))
-    pub5.publish(Float64(m_five))
-
-    time.sleep(2)
-    
-#    pub2.publish(Float64(m_two))
-    
-    
-    time.sleep(1)
+    second_start_angles = pickme_ik(350,0,800)
+#    print "Second Start"
+    mot_pub(second_start_angles[0],second_start_angles[1],second_start_angles[2],gripper_angle,second_start_angles[4],second_start_angles[5])
+    time.sleep(2)    
+#    time.sleep(1)
     
     # Get manip to drop position
     
@@ -403,16 +410,23 @@ def dropFruit():
     time.sleep(1)
     pub1.publish(Float64(m_one))
     time.sleep(1)
-    pub2.publish(Float64(m_two))
-    time.sleep(1)
-    pub3.publish(Float64(m_three))
     pub4.publish(Float64(m_four))
     pub5.publish(Float64(m_five))
+    time.sleep(1.5)
+    pub2.publish(Float64(m_two))
+    
+    time.sleep(3)
+#    pub3.publish(Float64(m_three))    #check if needed to uncomment
         
     rospy.sleep(0.1)
 #add something to read current state of motors and check if reached desired position
     time.sleep(3)
     closeManip(1)    #open manipulator
+    time.sleep(3)
+    f=open("/home/ssr/fuerte_workspace/sandbox/send.txt","w")
+    f.write('1')
+    f.close()
+    
     
 ######################################################
 
@@ -438,8 +452,14 @@ def handle_ikNmotor(req):
 
     resp = IkNMotorResponse()
     resp.angles=motor_angles
-    
+#############################    
+    second_start_angles = pickme_ik(350,0,800)
+#    print "Second Start"
+    mot_pub(second_start_angles[0],second_start_angles[1],second_start_angles[2],second_start_angles[3],second_start_angles[4],second_start_angles[5])
+    time.sleep(4)
+#############################    
     if motor_angles is not None:
+        
         mot_pub(motor_angles[0],motor_angles[1],motor_angles[2],motor_angles[3],motor_angles[4],motor_angles[5])
         time.sleep(3)
         closeManip(0)
@@ -463,6 +483,11 @@ def ikNmotor_server():
     rospy.init_node('ikNmotor_server')
     s = rospy.Service('ikNmotor', IkNMotor, handle_ikNmotor)
     print "Ready to get ik and set motors."
+    ui_flag=2
+    uiPub = rospy.Publisher('toggle_led', Int32)
+    uiPub.publish(ui_flag)
+    
+    
     rospy.spin()
 
 if __name__ == '__main__':
@@ -485,6 +510,12 @@ if __name__ == '__main__':
 #            mot_pub(motor_angles[0],motor_angles[1],motor_angles[2],motor_angles[3],motor_angles[4],motor_angles[5])
 
 #        print "Theta", motor_angles
+
+        ui_flag=5
+        uiPub = rospy.Publisher('toggle_led', Int32)
+        uiPub.publish(ui_flag)
+
+
 
         print "APPLE PICKED AND DROPPED"
     except rospy.ROSInterruptException:

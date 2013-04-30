@@ -9,7 +9,7 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/my_dynamixel_tutorial</url>
   <depend package="dynamixel_controllers"/>
-
+  <depend package="rosserial_python"/>
 </package>
 
 

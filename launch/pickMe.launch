@@ -2,11 +2,15 @@
 
 
     
-    <node pkg="my_dynamixel_tutorial" name="motor_speed" type="set_motors_speed_client.py"/>
-    <node pkg="my_dynamixel_tutorial" name="mot_start" type="mot_start.py"/>
-    <node pkg="my_dynamixel_tutorial" name="ikNmotor" type="ikNmotor.py"/>
-    <node pkg="frt" name="vision_ros" type="my_subscriber" output="screen"/>
-    <node pkg="my_dynamixel_tutorial" name="ikNmotor_client" type="ikNmotor_client.py"/>
+    <node pkg="my_dynamixel_tutorial" name="motor_speed" type="set_motors_speed_client.py" output="screen"/>
+    <node pkg="rosserial_python" name="serial_node" type="serial_node.py" output="screen">
+	    <param name="~port" value="/dev/ttyACM0" />
+	    <param name="~baud" value="57600" />
+    </node>
+    <node pkg="my_dynamixel_tutorial" name="mot_start" type="mot_start.py" output="screen"/>
+    <node pkg="my_dynamixel_tutorial" name="ikNmotor" type="ikNmotor.py" output="screen"/>
+    <node pkg="frt" name="vision_ros" type="my_subscriber"/>
+    <node pkg="my_dynamixel_tutorial" name="ikNmotor_client" type="ikNmotor_client.py" output="screen"/>
 
 
 

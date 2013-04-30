@@ -9,6 +9,9 @@ Measure at what place end effector closes and hold apple (for now, without havin
 Measure value of how much more to move after contact >> Integrate this measurement with complaince allowance!!!???????
 
 
+Reduce Arduino send stop when touched threshold!!!!!???????????
+
+
 
 Define proper order in which motors should be called --------- kinda done >> try improving
 
