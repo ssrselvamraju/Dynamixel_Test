@@ -3,6 +3,7 @@ import roslib; roslib.load_manifest('my_dynamixel_tutorial')
 import rospy
 from std_msgs.msg import Float64
 from std_msgs.msg import Int32
+from std_msgs.msg import String
 import math
 import numpy as np
 import time
@@ -51,8 +52,8 @@ def mot_pub(m_three,m_four,m_five,m_one,m_two,m_six):
 
         rospy.loginfo(m_six) #Base
 
-        rospy.loginfo(m_one)  #MX-64/106?
-        rospy.loginfo(m_two)  #MX-64/106?
+        rospy.loginfo(m_one)  #MX-64
+        rospy.loginfo(m_two)  #MX-106?
 
         rospy.loginfo(m_three)  #End effector open close
         rospy.loginfo(m_four)  #End effector up/down
@@ -61,7 +62,9 @@ def mot_pub(m_three,m_four,m_five,m_one,m_two,m_six):
 #Order in which stuff is published
         time.sleep(1)
         pub2.publish(0.57)
+        print "MX 106 at", 0.57*180/math.pi, "degrees"
         pub1.publish(Float64(m_one))
+        print "MX 64 at", m_one*180/math.pi, "degrees"
         time.sleep(1)
         pub3.publish(Float64(m_three))
         pub4.publish(Float64(m_four))
@@ -72,6 +75,8 @@ def mot_pub(m_three,m_four,m_five,m_one,m_two,m_six):
 #        time.sleep(1)
 #        pub1.publish(Float64(m_one))
         time.sleep(2)  #Increase delay while its working
+        print "MX 106 at", m_two*180/math.pi, "degrees"
+
         pub2.publish(Float64(m_two))
 #        time.sleep(1)
         
@@ -190,7 +195,7 @@ def setMotorSpeeds_client():
     rospy.wait_for_service('/tilt_controller4/set_speed')
     rospy.wait_for_service('/tilt_controller5/set_speed')
     rospy.wait_for_service('/tilt_controller6/set_speed')
-    
+    print "Setting motor speeds"
     try:
         set_speed1 = rospy.ServiceProxy('/tilt_controller1/set_speed', SetSpeed)
         set_speed1(0.25)
@@ -219,7 +224,7 @@ def setMotorComplaince_client():
     rospy.wait_for_service('/tilt_controller3/set_compliance_margin')   #Complaince margin
     
     try:
-        print "Setting complaince"
+        print "Setting compliance"
         set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_compliance_slope', SetComplianceSlope)
         set_speed3(4)
         set_speed3 = rospy.ServiceProxy('/tilt_controller3/set_compliance_margin', SetComplianceMargin)
@@ -227,7 +232,7 @@ def setMotorComplaince_client():
 
     
     except rospy.ServiceException, e:
-        print "Setting motor complaince failed, ERROR: %s"%e
+        print "Setting motor compliance failed, ERROR: %s"%e
 
 
 
@@ -258,7 +263,7 @@ def setMotorTorque_client():
 
 
 def arduino_callback(data):
-    rospy.loginfo(data.data)
+#    rospy.loginfo(data.data)
     stop_message = data.data
     
 
@@ -277,12 +282,12 @@ def arduino_listener():
 ######Subscribers for gripper position################
 
 def gripper_callback(data):
-    rospy.loginfo("Curr_gripper_pos is %s" % data.current_pos)
+#    rospy.loginfo("Curr_gripper_pos is %s" % data.current_pos)
     gripper_angle = data.current_pos
 
 def gripper_pos_listener():
 #    rospy.init_node('test_listener', anonymous=True)
-    rospy.Subscriber("/tilt_controller3/state", JointState, callback)
+    rospy.Subscriber("/tilt_controller3/state", JointState, gripper_callback)
 
 
 
@@ -309,7 +314,7 @@ def closeManip(flag):
         
         manipCloseVal = -1.4
         print "Closing End effector"
-        time.sleep(3)
+        time.sleep(1)
         
         ui_flag=0
         uiPub.publish(ui_flag)
@@ -317,16 +322,19 @@ def closeManip(flag):
         
         
         manipPub.publish(Float64(manipCloseVal))
-        print stop_command
-        if stop_command == "stop":
-            setMotorTorque_client()
-            print "Stopped due to COMMAND"
-        ###grip apple tight!!
-        
-        current_gripper_angle = copy.deepcopy(gripper_angle)
-        setFinal_gripper_angle = current_gripper_angle - 0.08   ###CHECK ####### TEST######put inside if!!
-        
-        time.sleep(4)
+#        print stop_command
+#        if stop_command == "stop":
+#            setMotorTorque_client()
+#            print "Stopped due to COMMAND"
+#        ###grip apple tight!!
+#            time.sleep(1)
+#            setFinal_gripper_angle = -1.4
+##            current_gripper_angle = copy.deepcopy(gripper_angle)
+##            setFinal_gripper_angle = current_gripper_angle - 0.08   ###CHECK ####### TEST######put inside if!!
+#            
+#            manipPub.publish(Float64(setFinal_gripper_angle))
+
+        time.sleep(2)
 
         ui_flag=3
         uiPub.publish(ui_flag)
@@ -338,6 +346,7 @@ def closeManip(flag):
     else:
 
         ui_flag=4
+        uiPub = rospy.Publisher('toggle_led', Int32)
         uiPub.publish(ui_flag)
 
         
@@ -371,9 +380,29 @@ def dropFruit():
     #define all these values after measurement
     
     
+    m_four = 0.785 #rock
+    m_five = -0.785 #twist
+    
+# m_two = 0.7 #come back a bit
+    rospy.loginfo(m_four)
+    rospy.loginfo(m_five)
+# rospy.loginfo(m_two)
+    
+    
+    time.sleep(1)
+    
+    pub4.publish(Float64(m_four))
+    pub5.publish(Float64(m_five))
+
+    time.sleep(1)
+    
+    
+    
+    
+    
     second_start_angles = pickme_ik(350,0,800)
 #    print "Second Start"
-    mot_pub(second_start_angles[0],second_start_angles[1],second_start_angles[2],gripper_angle,second_start_angles[4],second_start_angles[5])
+    mot_pub(-1.4,second_start_angles[1],second_start_angles[2],second_start_angles[3],second_start_angles[4],second_start_angles[5])
     time.sleep(2)    
 #    time.sleep(1)
     
@@ -383,7 +412,7 @@ def dropFruit():
     m_four=0.966
     m_five=-0.347
     m_one=4.28
-    m_two=1.46
+    m_two=1.5
     m_six=-1.917
 
     
@@ -396,9 +425,9 @@ def dropFruit():
 #    m_six=float(0)
 
     rospy.loginfo(m_six) #Base
-
-    rospy.loginfo(m_one)  #MX-64/106?
-    rospy.loginfo(m_two)  #MX-64/106?
+    time.sleep(1)
+    rospy.loginfo(m_one)  #MX-64
+    rospy.loginfo(m_two)  #MX-106?
 
     rospy.loginfo(m_three)  #End effector open close
     rospy.loginfo(m_four)  #End effector up/down
@@ -408,12 +437,15 @@ def dropFruit():
 
     pub6.publish(Float64(m_six))
     time.sleep(1)
+#    print "MX 64 at", m_one*180/math.pi, "degrees"
+
     pub1.publish(Float64(m_one))
     time.sleep(1)
     pub4.publish(Float64(m_four))
     pub5.publish(Float64(m_five))
     time.sleep(1.5)
     pub2.publish(Float64(m_two))
+#    print "MX 106 at", m_two*180/math.pi, "degrees"
     
     time.sleep(3)
 #    pub3.publish(Float64(m_three))    #check if needed to uncomment
@@ -422,7 +454,14 @@ def dropFruit():
 #add something to read current state of motors and check if reached desired position
     time.sleep(3)
     closeManip(1)    #open manipulator
-    time.sleep(3)
+    time.sleep(5)
+
+            
+    ui_flag=0
+    uiPub = rospy.Publisher('toggle_led', Int32)
+    uiPub.publish(ui_flag)
+
+    
     f=open("/home/ssr/fuerte_workspace/sandbox/send.txt","w")
     f.write('1')
     f.close()
@@ -481,11 +520,17 @@ def handle_ikNmotor(req):
     
 def ikNmotor_server():
     rospy.init_node('ikNmotor_server')
-    s = rospy.Service('ikNmotor', IkNMotor, handle_ikNmotor)
-    print "Ready to get ik and set motors."
+
+    gripper_pos_listener()
+    arduino_listener()
+
     ui_flag=2
     uiPub = rospy.Publisher('toggle_led', Int32)
     uiPub.publish(ui_flag)
+
+    
+    s = rospy.Service('ikNmotor', IkNMotor, handle_ikNmotor)
+    print "Ready to get ik and set motors."
     
     
     rospy.spin()
@@ -495,6 +540,8 @@ if __name__ == '__main__':
     time.sleep(2)
     setMotorComplaince_client()
     time.sleep(0.5)
+    
+
     try:
         ikNmotor_server()
 #        x = input("Enter x co-ord: ")
@@ -511,7 +558,7 @@ if __name__ == '__main__':
 
 #        print "Theta", motor_angles
 
-        ui_flag=5
+        ui_flag=0
         uiPub = rospy.Publisher('toggle_led', Int32)
         uiPub.publish(ui_flag)
 

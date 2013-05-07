@@ -32,9 +32,11 @@ def mot_start():
         rospy.loginfo(m_four)
         rospy.loginfo(m_five)
         rospy.loginfo(m_six)
-
-        pub1.publish(Float64(m_one))
+        
         pub2.publish(Float64(m_two))
+        time.sleep(0.25)
+        pub1.publish(Float64(m_one))
+       
         time.sleep(1)
         pub6.publish(Float64(m_six))
 #        print "moving base"

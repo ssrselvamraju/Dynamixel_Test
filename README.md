@@ -1,5 +1,5 @@
 ﻿Repo guidelines:
-
+________________________________________________________________________________________________________________________________
 
 
 1. Do "make clean" before committing to repo
@@ -10,3 +10,10 @@
 Command to call the set motor speed function:
 
 rostopic pub -1 /tilt_controller/command std_msgs/Float64 -- 1.5
+
+
+
+Run this node to get the arduino connected:
+
+rosrun rosserial_python serial_node.py /dev/ttyACM0
+
